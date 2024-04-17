@@ -3,10 +3,10 @@ import app from "../src/app.js";
 import 'dotenv/config'
 
 const port = process.env.PORT||8080
-
+const connectionString = process.env.DB_URI+"todo" || "";   
 async function main() {
     try {
-        await mongoose.connect(process.env.DB_URL+"todo")
+        await mongoose.connect(connectionString+"todo")
         app.listen(port)
         console.log("Сервер ожидает подключения...");
 

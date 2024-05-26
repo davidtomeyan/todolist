@@ -10,20 +10,21 @@ export default new class {
     }
 
     async sendActivate(user, token) {
-        return await this.transporter().sendMail({
-            from: '"localhost.ru" <tomeuan@mail.ru>',
-            to: [user.email],
-            subject: `Hello ${user.username}✔`,
-            html: `<body>
+        try {
+            const info = await this.transporter().sendMail({
+                from: '"todo.tomeyan.ru" <tomeuan@mail.ru>',
+                to: [user.email],
+                subject: `Hello ${user.username}✔`,
+                html: `<body>
                         <h1>How to copy token</h1>
                             <p>${token}</p>
                    </body>  `,
-        }).then(value => {
-            if (value) return value
-        }).catch(err => {
-            console.log(err)
-            if (err) throw ApiError.BadRequest(err.response)
-        })
+            })
+            return info
+        } catch (error) {
+            throw ApiError.BadRequest(error)
+        }
+
     }
 
     async createActivateToken(userId) {

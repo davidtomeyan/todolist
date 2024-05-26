@@ -10,6 +10,7 @@ export default new class {
     }
 
     async sendActivate(user, token) {
+        console.log(user, token)
         try {
             const info = await this.transporter().sendMail({
                 from: '"todo.tomeyan.ru" <tomeuan@mail.ru>',
@@ -24,7 +25,6 @@ export default new class {
         } catch (error) {
             throw ApiError.BadRequest(error)
         }
-
     }
 
     async createActivateToken(userId) {
@@ -90,16 +90,16 @@ export default new class {
     transporter() {
         return nodemailer.createTransport({
             host: 'smtp.mail.ru',
-            pool: true,
+            // pool: true,
             port: 465,
             secure: true,
             auth: {
                 user: "tomeuan@mail.ru",
                 pass: "BQ1UGm8Xgi206RaAPiC1",
             },
-            tls: {
-                rejectUnauthorized: false,
-            },
+            // tls: {
+            //     rejectUnauthorized: false,
+            // },
         })
     }
 }

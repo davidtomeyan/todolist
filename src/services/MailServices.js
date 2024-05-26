@@ -10,24 +10,20 @@ export default new class {
     }
 
     async sendActivate(user, token) {
-        console.log("sendActivate:", user, token)
-        try {
-            const transporter = this.transporter();
-            const info = await transporter.sendMail({
-                from: '"todo.tomeyan.ru" <tomeuan@mail.ru>',
-                to: [user.email],
-                subject: `Hello ${user.username}✔`,
-                html: `<body>
+        const transporter = this.transporter();
+        const info = await transporter.sendMail({
+            from: '"todo.tomeyan.ru" <tomeuan@mail.ru>',
+            to: [user.email],
+            subject: `Hello ${user.username}✔`,
+            html: `<body>
                         <h1>How to copy token</h1>
                             <p>${token}</p>
                    </body>  `,
-            })
-            console.log(info)
-            return info
-        } catch (error) {
-            console.log(error)
-            throw ApiError.BadRequest(error)
-        }
+        })
+        console.log(info)
+        if (info.response.substr(0, 3) == '250') {
+            return `Письмо успешно отправлено на адрес ${user.email}!`
+        } else throw ApiError.BadRequest("sendActivate: error sending token .")
     }
 
     async createActivateToken(userId) {
@@ -93,16 +89,16 @@ export default new class {
     transporter = () => {
         return nodemailer.createTransport({
             host: 'smtp.mail.ru',
-            // pool: true,
+            pool: true,
             port: 465,
             secure: true,
             auth: {
                 user: "tomeuan@mail.ru",
                 pass: "BQ1UGm8Xgi206RaAPiC1",
             },
-            // tls: {
-            //     rejectUnauthorized: false,
-            // },
+            tls: {
+                rejectUnauthorized: false,
+            },
         })
     }
 }

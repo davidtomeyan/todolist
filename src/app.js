@@ -13,7 +13,7 @@ const app = express()
 
 app.use(cors({
     credentials: true,
-    origin: "http://todo.tomeyan.ru"
+    origin: "todo.tomeyan.ru"
 }))
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const staticPath = path.join(__dirname, "..", "public/build")

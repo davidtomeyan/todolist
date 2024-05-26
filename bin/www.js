@@ -3,7 +3,7 @@ import app from "../src/app.js";
 import 'dotenv/config'
 
 const port = 80
-const connectionString = 'mongodb://gen_user:XwKela%25Bz29A)(@147.45.105.183:27017/default_db?authSource=admin&directConnection=true';   
+const connectionString = 'mongodb://gen_user:RG%7C%3Be%5C%5C*h7Hk~1@94.241.138.162:27017/default_db?authSource=admin&directConnection=true';   
 async function main() {
     try {
         await mongoose.connect(connectionString)

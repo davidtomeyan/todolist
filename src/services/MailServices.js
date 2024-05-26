@@ -21,7 +21,7 @@ export default new class {
         }).then(value => {
             if (value) return value
         }).catch(err => {
-            if (err) throw ApiError.BadRequest(err.response)
+            if (err) throw ApiError.BadRequest(err.message)
         })
     }
 

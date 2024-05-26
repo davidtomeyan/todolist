@@ -6,6 +6,7 @@ import ApiError from "../exceptions/api-error.js";
 export default new class {
     constructor() {
         this.sendActivate = this.sendActivate.bind(this)
+        this.transporter = this.transporter.bind(this)
     }
 
     async sendActivate(user, token) {
@@ -39,8 +40,8 @@ export default new class {
             const timout = setTimeout(async () => {
                 await activateTokenModel.findOneAndDelete({user: userId})
             }, 180 * 1000)
-
             clearTimeout(timout)
+
             return cratedToken
         } catch (e) {
             throw ApiError.BadRequest(e)

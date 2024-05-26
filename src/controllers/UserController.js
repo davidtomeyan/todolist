@@ -110,8 +110,10 @@ export default class UserController {
             const user = await userService.getUserById(req.body.id)
             const token = await mailServices.createActivateToken(req.body.id)
             const sendToken = await mailServices.sendActivate(user, token.token)
+            console.log(sendToken)
             res.json({sendActivateToken: true})
         } catch (e) {
+            console.log(e.message)
             next(e)
         }
     }
@@ -121,6 +123,7 @@ export default class UserController {
             const token = await mailServices.getToken(req.params.id)
             return res.json({isActivateToken: true})
         } catch (e) {
+            console.log(e)
             next(e)
         }
     }

@@ -6,24 +6,22 @@ import ApiError from "../exceptions/api-error.js";
 export default new class {
     constructor() {
         this.sendActivate = this.sendActivate.bind(this)
-        this.transporter = this.transporter.bind(this)
     }
 
     async sendActivate(user, token) {
-        const transporter = this.transporter();
-        const info = await transporter.sendMail({
-            from: '"todo.tomeyan.ru" <tomeyandavid1@gmail.com>',
+        return await this.transporter().sendMail({
+            from: '"localhost.ru" <tomeuan@mail.ru>',
             to: [user.email],
             subject: `Hello ${user.username}✔`,
             html: `<body>
                         <h1>How to copy token</h1>
                             <p>${token}</p>
                    </body>  `,
+        }).then(value => {
+            if (value) return value
+        }).catch(err => {
+            if (err) throw ApiError.BadRequest(err.response)
         })
-        console.log(info)
-        if (info.response.substr(0, 3) == '250') {
-            return `Письмо успешно отправлено на адрес ${user.email}!`
-        } else throw ApiError.BadRequest("sendActivate: error sending token .")
     }
 
     async createActivateToken(userId) {
@@ -41,8 +39,8 @@ export default new class {
             const timout = setTimeout(async () => {
                 await activateTokenModel.findOneAndDelete({user: userId})
             }, 180 * 1000)
-            clearTimeout(timout)
 
+            clearTimeout(timout)
             return cratedToken
         } catch (e) {
             throw ApiError.BadRequest(e)
@@ -86,15 +84,15 @@ export default new class {
         }
     }
 
-    transporter = () => {
+    transporter() {
         return nodemailer.createTransport({
-            host: 'smtp.gmail.com',
+            host: 'smtp.mail.ru',
             pool: true,
             port: 465,
             secure: true,
             auth: {
-                user: "tomeyandavid1@gmail.com",
-                pass: "realmadrid199421",
+                user: "tomeuan@mail.ru",
+                pass: "BQ1UGm8Xgi206RaAPiC1",
             },
             tls: {
                 rejectUnauthorized: false,

@@ -11,10 +11,7 @@ import * as path from "path";
 
 const app = express()
 
-app.use(cors({
-    credentials: true,
-    origin: "todo.tomeyan.ru"
-}))
+
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const staticPath = path.join(__dirname, "..", "public/build")
 const rootFilePath = path.join(__dirname, "..", "public/build/index.html")
@@ -27,7 +24,10 @@ var options = {
         res.set('x-timestamp', Date.now())
     }
 }
-
+app.use(cors({
+    credentials: true,
+    origin: "http://todo.tomeyan.ru/"
+}))
 app.use(express.static(staticPath))
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({extended: true})) // for parsing application/x-www-form-urlencoded

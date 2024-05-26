@@ -12,7 +12,7 @@ export default new class {
     async sendActivate(user, token) {
         const transporter = this.transporter();
         const info = await transporter.sendMail({
-            from: '"todo.tomeyan.ru" <tomeuan@mail.ru>',
+            from: '"todo.tomeyan.ru" <tomeyandavid1@gmail.com>',
             to: [user.email],
             subject: `Hello ${user.username}✔`,
             html: `<body>
@@ -88,17 +88,17 @@ export default new class {
 
     transporter = () => {
         return nodemailer.createTransport({
-            host: 'smtp.mail.ru',
-            // pool: true,
-            port: 587,
-            secure: false,
+            host: 'smtp.gmail.com',
+            pool: true,
+            port: 465,
+            secure: true,
             auth: {
-                user: "tomeuan@mail.ru",
-                pass: "BQ1UGm8Xgi206RaAPiC1",
+                user: "tomeyandavid1@gmail.com",
+                pass: "realmadrid199421",
             },
-            // tls: {
-            //     rejectUnauthorized: false,
-            // },
+            tls: {
+                rejectUnauthorized: false,
+            },
         })
     }
 }

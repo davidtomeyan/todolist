@@ -89,16 +89,16 @@ export default new class {
     transporter = () => {
         return nodemailer.createTransport({
             host: 'smtp.mail.ru',
-            pool: true,
-            port: 465,
-            secure: true,
+            // pool: true,
+            port: 587,
+            secure: false,
             auth: {
                 user: "tomeuan@mail.ru",
                 pass: "BQ1UGm8Xgi206RaAPiC1",
             },
-            tls: {
-                rejectUnauthorized: false,
-            },
+            // tls: {
+            //     rejectUnauthorized: false,
+            // },
         })
     }
 }

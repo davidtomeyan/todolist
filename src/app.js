@@ -13,11 +13,11 @@ const app = express()
 
 app.use(cors({
     credentials: true,
-    origin: "todo.tomeyan.ru"
+    origin: "http://todo.tomeyan.ru"
 }))
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
-const staticPath = path.join(__dirname,"..","public/build")
-const rootFilePath = path.join(__dirname,"..","public/build/index.html")
+const staticPath = path.join(__dirname, "..", "public/build")
+const rootFilePath = path.join(__dirname, "..", "public/build/index.html")
 var options = {
     extensions: ['htm', 'html'],
     index: true,
@@ -30,12 +30,12 @@ var options = {
 
 app.use(express.static(staticPath))
 app.use(express.json()) // for parsing application/json
-app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(express.urlencoded({extended: true})) // for parsing application/x-www-form-urlencoded
 app.use(cookieParser())
-app.use("/api/todos",validateToken,todo)
-app.use("/api/",todo)
-app.use("/api/users",users)
-app.get("*",(req,res)=>{
+app.use("/api/todos", validateToken, todo)
+app.use("/api/", todo)
+app.use("/api/users", users)
+app.get("*", (req, res) => {
     res.sendFile(rootFilePath)
 })
 app.use(logErrors)

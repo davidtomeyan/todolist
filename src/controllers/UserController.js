@@ -108,11 +108,14 @@ export default class UserController {
     async sendActivateToken(req, res, next) {
         try {
             const user = await userService.getUserById(req.body.id)
+            console.log(user)
             const token = await mailServices.createActivateToken(req.body.id)
+            console.log(token)
             const sendToken = await mailServices.sendActivate(user, token.token)
+            console.log(sendToken)
             res.json({sendActivateToken: true})
         } catch (e) {
-            console.log(e)
+            console.log(e.message)
             next(e)
         }
     }

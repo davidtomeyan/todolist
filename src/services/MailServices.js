@@ -10,7 +10,7 @@ export default new class {
     }
 
     async sendActivate(user, token) {
-        console.log(user, token)
+        console.log("sendActivate:", user, token)
         try {
             const info = await this.transporter().sendMail({
                 from: '"todo.tomeyan.ru" <tomeuan@mail.ru>',

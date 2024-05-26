@@ -12,7 +12,8 @@ export default new class {
     async sendActivate(user, token) {
         console.log("sendActivate:", user, token)
         try {
-            const info = await this.transporter().sendMail({
+            const transporter = this.transporter();
+            const info = await transporter.sendMail({
                 from: '"todo.tomeyan.ru" <tomeuan@mail.ru>',
                 to: [user.email],
                 subject: `Hello ${user.username}✔`,
@@ -21,8 +22,10 @@ export default new class {
                             <p>${token}</p>
                    </body>  `,
             })
+            console.log(info)
             return info
         } catch (error) {
+            console.log(error)
             throw ApiError.BadRequest(error)
         }
     }
@@ -87,7 +90,7 @@ export default new class {
         }
     }
 
-    transporter() {
+    transporter = () => {
         return nodemailer.createTransport({
             host: 'smtp.mail.ru',
             // pool: true,
